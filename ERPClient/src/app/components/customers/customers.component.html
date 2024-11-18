@@ -1,0 +1,168 @@
+<app-blank PageName="Müşteriler" [routes]="['Müşteriler']">
+    <app-section sectionTitle="Müşteri Listesi">
+        <div class="form-group row">
+            <div class="col-9">
+                <button class="btn btn-dark" data-toggle="modal" data-target="#createModal"> <i class="fa-solid fa-plus me-2"></i>Müşteri Ekle
+                    
+                </button>
+            </div>
+            <div class="col-3">
+                <input [(ngModel)]="search" type="search" class="form-control" placeholder="Arama yapınız..">
+            </div>
+        </div>
+       
+        <div class="form-group mt-2">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Müşteri Adı</th>
+                    <th scope="col">Vergi Dairesi</th>
+                    <th scope="col">Vergi Numarası</th>
+                    <th scope="col">Şehir</th>
+                    <th scope="col">İlçe</th>
+                    <th scope="col">Açık Adres</th>
+                    <th scope="col">İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @for (customer of customers; track customer) {
+                  <tr>
+                    <th scope="row">{{$index+1}}</th>
+                    
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.taxDepartment}}</td>
+                    <td>{{customer.taxNumber}}</td>
+                    <td>{{customer.city}}</td>
+                    <td>{{customer.district}}</td>
+                    <td>{{customer.address}}</td>
+                    <td><button   (click)="deletebyId(customer)" class="btn btn-danger me-2">Sil</button>
+                    <button  data-toggle="modal" data-target="#updateModal" (click)="get(customer)"  class="btn btn-warning">Güncelle</button>
+                    </td>
+                  </tr>
+               
+                }
+                </tbody>
+              </table>
+        </div>
+
+
+
+        
+    </app-section>
+</app-blank>
+<!-- Create Customer Model Başlangıç -->
+<div class="modal fade" id="createModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-plus me-2"></i> Müşteri ekle</h1>
+        
+        </div>
+        <form  #createForm="ngForm" (ngSubmit)="create(createForm)" formValidate>
+        
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Müşteri Adı:</label>
+              <input type="text" required minlength="3" [(ngModel)]="createCustomerModel.name" class="form-control" name="name">
+              <div class="invalid-feedback"></div>
+
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label" >Vergi Dairesi:</label>
+              <input type="text" required minlength="5"[(ngModel)]="createCustomerModel.taxDepartment" class="form-control" name="taxDepartment">
+              <div class="invalid-feedback"></div>
+             
+            </div>
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Vergi Numarası</label>
+                <input type="text" required minlength="10" [(ngModel)]="createCustomerModel.taxNumber" maxlength="11" class="form-control" name="taxNumber">
+                <div class="invalid-feedback"></div>
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Şehir</label>
+                <input type="text" required minlength="5" [(ngModel)]="createCustomerModel.city" class="form-control" name="city">
+                <div class="invalid-feedback"></div>
+
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">İlçe</label>
+                <input type="text" required minlength="4" [(ngModel)]="createCustomerModel.district"  class="form-control" name="district">
+                <div class="invalid-feedback"></div>
+
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Adres</label>
+                <input type="text"  minlength="3" [(ngModel)]="createCustomerModel.address" class="form-control" name="Adress">
+                <div class="invalid-feedback"></div>
+                
+              </div>
+              
+              <div class="modal-footer">
+                <button  type="submit" class="btn btn-dark w-100">KAYDET</button>
+              </div>
+            </div>
+          </form>
+          </div>
+    </div>
+  </div>
+<!-- Create Customer Model bitiş -->
+
+
+<!-- Update Customer model başlangıç -->
+
+<div class="modal fade" id="updateModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-plus me-2"></i> Müşteri ekle</h1>
+      
+      </div>
+      <form  #updateForm="ngForm" (ngSubmit)="update(updateForm)" formValidate>
+      
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Müşteri Adı:</label>
+            <input type="text" required minlength="3" [(ngModel)]="updateCustomerModel.name" class="form-control" name="updatename">
+            <div class="invalid-feedback"></div>
+
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label" >Vergi Dairesi:</label>
+            <input type="text" required minlength="5"[(ngModel)]="updateCustomerModel.taxDepartment" class="form-control" name="updatetaxDepartment">
+            <div class="invalid-feedback"></div>
+           
+          </div>
+          <div class="mb-3">
+              <label  class="col-form-label">Vergi Numarası</label>
+              <input type="text" required minlength="10" [(ngModel)]="updateCustomerModel.taxNumber" maxlength="11" class="form-control" name="updatetaxNumber">
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+              <label  class="col-form-label">Şehir</label>
+              <input type="text" required minlength="5" [(ngModel)]="updateCustomerModel.city" class="form-control" name="updatecity">
+              <div class="invalid-feedback"></div>
+
+            </div>
+            <div class="mb-3">
+              <label class="col-form-label">İlçe</label>
+              <input type="text" required minlength="4" [(ngModel)]="updateCustomerModel.district"  class="form-control" name="updatedistrict">
+              <div class="invalid-feedback"></div>
+
+            </div>
+            <div class="mb-3">
+              <label  class="col-form-label">Adres</label>
+              <input type="text"  minlength="3" [(ngModel)]="updateCustomerModel.address" class="form-control" name="updateAdress">
+              <div class="invalid-feedback"></div>
+              
+            </div>
+            
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-dark w-100">UPDATE</button>
+            </div>
+          </div>
+        </form>
+        </div>
+  </div>
+</div>
+<!-- Update Customer model bitiş -->

@@ -1,0 +1,136 @@
+<app-blank PageName="Depolar" [routes]="['Depolar']">
+    <app-section sectionTitle="Depo Listesi">
+        <div class="row form-group">
+            <div class="col-9">
+                <button data-toggle="modal" data-target="#createModal" class="btn btn-dark"><i class="fa-solid fa-plus me-2"></i>Depo Ekle</button>
+                
+            </div>
+            <div class="col-3">
+                <input type="search" class="form-control" placeholder="Arama yapınız..">
+            </div>
+
+
+            <div class="form-group mt-2">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Adı</th>
+                            <th>Şehir</th>
+                            <th>İlçe</th>
+                            <th>Açık Adres</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (depot of depots; track depot) {
+                           <tr>
+                        <td>{{depot.name}}</td>
+                        <td>{{depot.city}}</td>
+                        <td>{{depot.town}}</td>
+                        <td>{{depot.address}}</td>
+                        <td>
+                            <button (click)="delete(depot)" class="btn btn-danger me-2">Sil</button>
+                            <button (click)="get(depot)" data-toggle="modal" data-target="#updateModal" class="btn btn-warning">Güncelle</button>
+
+                        </td>
+                    </tr>
+                       }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </app-section>
+</app-blank>
+
+<div class="modal fade" id="createModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-plus me-2"></i> Müşteri ekle</h1>
+        
+        </div>
+        <form #createForm="ngForm" (ngSubmit)="create(createForm)"  >
+        
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Depo Adı:</label>
+              <input type="text" required minlength="3" [(ngModel)]="createDepot.name" class="form-control" name="name">
+              <div class="invalid-feedback"></div>
+
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label" >Şehir:</label>
+              <input type="text" required minlength="5" [(ngModel)]="createDepot.city" class="form-control" name="city">
+              <div class="invalid-feedback"></div>
+             
+            </div>
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">İlçe</label>
+                <input type="text" required minlength="10" [(ngModel)]="createDepot.town"  maxlength="11" class="form-control" name="town">
+                <div class="invalid-feedback"></div>
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Açık Adres</label>
+                <input type="text" required minlength="5" [(ngModel)]="createDepot.address"   class="form-control" name="address">
+                <div class="invalid-feedback"></div>
+
+              </div>
+             
+              
+              <div class="modal-footer">
+                <button  type="submit" class="btn btn-dark w-100">KAYDET</button>
+              </div>
+            </div>
+          </form>
+          </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="updateModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-plus me-2"></i> Müşteri ekle</h1>
+        
+        </div>
+        <form  #updateForm="ngForm" (ngSubmit)="update(updateForm)" formValidate>
+        
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Müşteri Adı:</label>
+              <input type="text" required minlength="3" [(ngModel)]="updateDepot.name" class="form-control" name="updatename">
+              <div class="invalid-feedback"></div>
+  
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label" >Vergi Dairesi:</label>
+              <input type="text" required minlength="5"[(ngModel)]="updateDepot.city" class="form-control" name="updatetaxDepartment">
+              <div class="invalid-feedback"></div>
+             
+            
+              <div class="mb-3">
+                <label  class="col-form-label">Şehir</label>
+                <input type="text" required minlength="5" [(ngModel)]="updateDepot.town" class="form-control" name="updatecity">
+                <div class="invalid-feedback"></div>
+  
+              </div>
+             
+              <div class="mb-3">
+                <label  class="col-form-label">Adres</label>
+                <input type="text"  minlength="3" [(ngModel)]="updateDepot.address" class="form-control" name="updateAdress">
+                <div class="invalid-feedback"></div>
+                
+              </div>
+              
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-dark w-100">UPDATE</button>
+              </div>
+            </div>
+        </div>
+          </form>
+          </div>
+    </div>
+  </div>

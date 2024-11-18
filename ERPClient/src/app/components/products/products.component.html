@@ -1,0 +1,135 @@
+<app-blank PageName="Ürünler" [routes]="['Ürünler']">
+    <app-section sectionTitle="Ürün Listesi">
+        <div class="row form-group">
+        <div class="col-9">
+            <button data-toggle="modal" data-target="#createModal" class="btn btn-dark"><i class="fa-solid fa-plus me-2"></i>Ürün Ekle</button>
+            
+        </div>
+        <div class="col-3">
+            <input type="search" class="form-control" placeholder="Arama yapınız..">
+        </div>
+    </div>
+
+    <div class="form-group mt-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ürün Adı</th>
+                    <th>Tipi</th>
+                    <th>İşlemler</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+              
+                @for (product of products; track $index) {
+                   <tr>
+                        <td>{{ + 1}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.type.name}}</td>
+
+                        <td>
+                            <button (click)="deleteById(product)" class="btn btn-danger me-2">Sil</button>
+                            <button (click)="get(product)" data-toggle="modal" data-target="#updateModal" class="btn btn-warning">Güncelle</button>
+        
+                        </td>
+                    </tr>
+                    }
+              
+            </tbody>
+        </table>
+    </div>
+
+    </app-section>
+</app-blank>
+
+<div class="modal fade" id="createModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-plus me-2"></i>Ürün Ekle</h1>
+        
+        </div>
+        <form #createForm="ngForm" (ngSubmit)="create(createForm)">
+        
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Ürün Tipi</label>
+              <!-- <input type="text" required minlength="3" [(ngModel)]="createModel.type.name" class="form-control" name="name"> -->
+
+              <select class="form-control" [(ngModel)]="createModel.typeValue" name="type">
+                @for (product of productEnum ; track product) {
+                    
+                    <option  [value]="product.value">{{product.name}}</option>
+
+                }
+              </select>
+
+              <div class="invalid-feedback"></div>
+
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label" >Ürün</label>
+              <input type="text" required minlength="5" [(ngModel)]="createModel.name" class="form-control" name="city">
+              <div class="invalid-feedback"></div>
+             
+            </div>
+          
+             
+              
+              <div class="modal-footer">
+                <button  type="submit" class="btn btn-dark w-100">KAYDET</button>
+              </div>
+            </div>
+          </form>
+          </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="modal fade" id="updateModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-plus me-2"></i> Müşteri ekle</h1>
+        
+        </div>
+        <form  #updateForm="ngForm" (ngSubmit)="update(updateForm)" formValidate>
+        
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Ürün Adı</label>
+              <input type="text" required minlength="3" [(ngModel)]="updateModel.name" class="form-control" name="updatename">
+              <div class="invalid-feedback"></div>
+  
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label" >Tipi</label>
+              <!-- <input type="text" required minlength="5"[(ngModel)]="updateModel.type.name" class="form-control" name="updatetaxDepartment">
+                -->
+                <select class="form-control" [(ngModel)]="updateModel.typeValue" name="updatetype">
+                    @for (product of productEnum ; track product) {
+                        
+                        <option [value]="product.value">{{product.name}}</option>
+    
+                    }
+                  </select>
+    
+              <div class="invalid-feedback"></div>
+             
+            
+             
+              
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-dark w-100">UPDATE</button>
+              </div>
+            </div>
+        </div>
+          </form>
+          </div>
+    </div>
+  </div>
