@@ -7,12 +7,21 @@ import { AuthService } from './services/auth.service';
 import { CustomersComponent } from './components/customers/customers.component';
 import { DepotsComponent } from './components/depots/depots.component';
 import { ProductsComponent } from './components/products/products.component';
+import { RecipeComponent } from './components/recipe/recipe.component';
+import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
+import { OrderComponent } from './components/order/order.component';
+import { RequirementsPlanningComponent } from './components/requirements-planning/requirements-planning.component';
 
 export const routes: Routes = [
 
     {
         path:"login",
         component:LoginComponent
+    },
+    {
+        path:"requirements-planning/:orderId",
+        component:RequirementsPlanningComponent,
+        canActivate:[()=>inject(AuthService).isAuthenticated()]
     },
    
     {
@@ -35,6 +44,18 @@ export const routes: Routes = [
             {
                 path:"products",
                 component:ProductsComponent
+            },{
+                path:"recipes",
+                component:RecipeComponent
+            },
+            {
+                path:"recipe-details/:id",
+                component:RecipeDetailsComponent
+
+            },
+            {
+                path:"order",
+                component:OrderComponent
             }
         ]
 

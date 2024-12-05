@@ -18,4 +18,9 @@
     <ProjectReference Include="..\ERPServer.Domain\ERPServer.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\NewFolder\" />
+    <Folder Include="Features\Orders\UpdateOrders\NewFolder\" />
+  </ItemGroup>
+
 </Project>

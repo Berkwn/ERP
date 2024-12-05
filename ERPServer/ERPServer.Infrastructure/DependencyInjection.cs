@@ -53,6 +53,13 @@ public static class DependencyInjection
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IDepotRepository, DepotRepository>();
         services.AddScoped<IProductRepository , ProductRepository>();
+        services.AddScoped<IRecipeRepository,RecipeRepository>();
+        services.AddScoped<IRecipeDetailRepository , RecipeDetailRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+        services.AddScoped<IStockMovementRepository, StockMovementRepository>();
+        services.AddScoped<IInvioceRepository, InvoiceRepository>();
+
 
         return services;
     }

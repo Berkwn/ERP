@@ -41,7 +41,23 @@ export const Menus: MenuModel[]=[
                 url:"/products",
                 isTitle:false,
                 subMenus:[]
-            }
+            },
+            {
+                name:"Reçeteler",
+                icon:"",
+                url:"/recipes",
+                isTitle:false,
+                subMenus:[
+                 
+                ]
+            },
+            {
+                name:"Siparişler",
+                icon: "fa-solid fa-product-hunt me-2",
+                url:"/order",
+                isTitle:false,
+                subMenus:[]
+            },
         ]
 
     }

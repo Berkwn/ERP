@@ -4,6 +4,7 @@ import { ProductModel, ProductTypeEnum, productTypes } from '../../models/produc
 import { HttpService } from '../../services/http.service';
 import { NgForm } from '@angular/forms';
 import { SwalService } from '../../services/swal.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -17,6 +18,7 @@ export class ProductsComponent  implements OnInit {
   constructor(
     private http :HttpService,
     private swal:SwalService
+    
   ){
     
   }
